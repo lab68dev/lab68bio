@@ -21,6 +21,7 @@ import {
   Check,
   ArrowRight,
 } from "lucide-react";
+import { useTranslation, type Lang } from "@/lib/i18n";
 
 /* -------------------------------------------------------------------------- */
 /*  NEON DATABASE PROXY MOCK                                                  */
@@ -771,7 +772,11 @@ const features = [
   },
 ];
 
+const featureIcons = [MousePointerClick, Link2, LayoutGrid, Zap, Smartphone, Palette];
+
 function FeaturesSection() {
+  const { t } = useTranslation();
+
   return (
     <section className="relative py-32 px-8" style={{ zIndex: 20 }}>
       <div className="max-w-6xl mx-auto">
@@ -784,7 +789,7 @@ function FeaturesSection() {
               color: "rgba(255, 255, 255, 0.3)",
             }}
           >
-            // WHAT YOU GET
+            {t.features.overline}
           </div>
           <h2
             className="text-[clamp(1.8rem,3.5vw,3rem)] font-semibold mb-4"
@@ -793,7 +798,7 @@ function FeaturesSection() {
               color: "rgba(255, 255, 255, 0.95)",
             }}
           >
-            Everything you need. Nothing you don&apos;t.
+            {t.features.title}
           </h2>
           <p
             className="text-sm max-w-xl mx-auto"
@@ -802,15 +807,16 @@ function FeaturesSection() {
               color: "rgba(255, 255, 255, 0.35)",
             }}
           >
-            Powerful building blocks designed to make your bio and portfolio
-            page stand out — all wrapped in an interface that feels effortless.
+            {t.features.subtitle}
           </p>
         </div>
 
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((f) => (
-            <TechBrackets key={f.title} className="group">
+          {t.features.items.map((f, i) => {
+            const Icon = featureIcons[i];
+            return (
+            <TechBrackets key={i} className="group">
               <div
                 className="p-8 h-full transition-colors duration-300"
                 style={{
@@ -825,7 +831,7 @@ function FeaturesSection() {
                     border: "1px solid rgba(255, 255, 255, 0.1)",
                   }}
                 >
-                  <f.icon
+                  <Icon
                     size={18}
                     strokeWidth={1.5}
                     style={{ color: "rgba(255, 255, 255, 0.6)" }}
@@ -851,7 +857,8 @@ function FeaturesSection() {
                 </p>
               </div>
             </TechBrackets>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
@@ -862,28 +869,12 @@ function FeaturesSection() {
 /*  HOW IT WORKS SECTION                                                      */
 /* -------------------------------------------------------------------------- */
 
-const steps = [
-  {
-    num: "01",
-    icon: UserPlus,
-    title: "Create Your Account",
-    desc: "Sign up in seconds. Choose a username — that becomes your permanent link: username.bio.lab68.",
-  },
-  {
-    num: "02",
-    icon: Paintbrush,
-    title: "Design Your Page",
-    desc: "Open the visual editor. Drag blocks onto your canvas, customize content, rearrange until it's perfect.",
-  },
-  {
-    num: "03",
-    icon: Globe,
-    title: "Publish & Share",
-    desc: "One click to go live. Share your link anywhere — social bios, email signatures, business cards.",
-  },
-];
+const stepIcons = [UserPlus, Paintbrush, Globe];
+const stepNums = ["01", "02", "03"];
 
 function HowItWorksSection() {
+  const { t } = useTranslation();
+
   return (
     <section className="relative py-32 px-8" style={{ zIndex: 20 }}>
       <div className="max-w-5xl mx-auto">
@@ -896,7 +887,7 @@ function HowItWorksSection() {
               color: "rgba(255, 255, 255, 0.3)",
             }}
           >
-            // HOW IT WORKS
+            {t.howItWorks.overline}
           </div>
           <h2
             className="text-[clamp(1.8rem,3.5vw,3rem)] font-semibold"
@@ -905,16 +896,18 @@ function HowItWorksSection() {
               color: "rgba(255, 255, 255, 0.95)",
             }}
           >
-            Three steps. Zero friction.
+            {t.howItWorks.title}
           </h2>
         </div>
 
         {/* Steps */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {steps.map((s, i) => (
-            <div key={s.num} className="relative">
+          {t.howItWorks.steps.map((s, i) => {
+            const Icon = stepIcons[i];
+            return (
+            <div key={i} className="relative">
               {/* Connector line */}
-              {i < steps.length - 1 && (
+              {i < t.howItWorks.steps.length - 1 && (
                 <div
                   className="hidden md:block absolute top-8 left-[calc(50%+40px)] right-[calc(-50%+40px)] h-px"
                   style={{ background: "rgba(255, 255, 255, 0.08)" }}
@@ -934,7 +927,7 @@ function HowItWorksSection() {
                       color: "rgba(255, 255, 255, 0.2)",
                     }}
                   >
-                    STEP {s.num}
+                    STEP {stepNums[i]}
                   </div>
                   <div
                     className="w-14 h-14 flex items-center justify-center mx-auto mb-6"
@@ -942,7 +935,7 @@ function HowItWorksSection() {
                       border: "1px solid rgba(255, 255, 255, 0.1)",
                     }}
                   >
-                    <s.icon
+                    <Icon
                       size={22}
                       strokeWidth={1.5}
                       style={{ color: "rgba(255, 255, 255, 0.7)" }}
@@ -969,7 +962,8 @@ function HowItWorksSection() {
                 </div>
               </TechBrackets>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
@@ -1012,6 +1006,8 @@ const showcasePages = [
 ];
 
 function ShowcaseSection() {
+  const { t } = useTranslation();
+
   return (
     <section className="relative py-32 px-8" style={{ zIndex: 20 }}>
       <div className="max-w-6xl mx-auto">
@@ -1024,7 +1020,7 @@ function ShowcaseSection() {
               color: "rgba(255, 255, 255, 0.3)",
             }}
           >
-            // REAL PEOPLE. REAL PAGES.
+            {t.showcase.overline}
           </div>
           <h2
             className="text-[clamp(1.8rem,3.5vw,3rem)] font-semibold mb-4"
@@ -1033,7 +1029,7 @@ function ShowcaseSection() {
               color: "rgba(255, 255, 255, 0.95)",
             }}
           >
-            See what others are building.
+            {t.showcase.title}
           </h2>
           <p
             className="text-sm max-w-xl mx-auto"
@@ -1042,8 +1038,7 @@ function ShowcaseSection() {
               color: "rgba(255, 255, 255, 0.35)",
             }}
           >
-            Designers, developers, creators, freelancers — everyone&apos;s building
-            their corner of the internet with lab68bio.
+            {t.showcase.subtitle}
           </p>
         </div>
 
@@ -1134,61 +1129,15 @@ function ShowcaseSection() {
 /*  PRICING SECTION                                                           */
 /* -------------------------------------------------------------------------- */
 
-const pricingTiers = [
-  {
-    name: "Starter",
-    plan: "free" as const,
-    price: "Free",
-    period: "forever",
-    desc: "Everything you need to get started with your bio page.",
-    features: [
-      "1 published page",
-      "All 9 block types",
-      "username.bio.lab68 link",
-      "Drag & drop editor",
-      "Mobile responsive",
-    ],
-    cta: "Start Free",
-    highlight: false,
-  },
-  {
-    name: "Pro",
-    plan: "pro" as const,
-    price: "$8",
-    period: "/ month",
-    desc: "For creators and professionals who want to stand out.",
-    features: [
-      "Unlimited pages",
-      "Custom themes & fonts",
-      "Analytics dashboard",
-      "Priority support",
-      "Remove lab68 branding",
-      "Custom CSS injection",
-    ],
-    cta: "Go Pro",
-    highlight: true,
-  },
-  {
-    name: "Team",
-    plan: "team" as const,
-    price: "$24",
-    period: "/ month",
-    desc: "For agencies and teams managing multiple identities.",
-    features: [
-      "Everything in Pro",
-      "5 team members",
-      "Shared template library",
-      "Bulk page management",
-      "API access",
-      "Dedicated account manager",
-    ],
-    cta: "Contact Sales",
-    highlight: false,
-  },
+const tierMeta = [
+  { plan: "free" as const, price: "Free", period: "forever", highlight: false },
+  { plan: "pro" as const, price: "$8", period: "/ month", highlight: true },
+  { plan: "team" as const, price: "$24", period: "/ month", highlight: false },
 ];
 
 function PricingSection() {
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
+  const { t } = useTranslation();
 
   async function handleCheckout(plan: "free" | "pro" | "team") {
     if (plan === "free") {
@@ -1231,7 +1180,7 @@ function PricingSection() {
               color: "rgba(255, 255, 255, 0.3)",
             }}
           >
-            // SIMPLE PRICING
+            {t.pricing.overline}
           </div>
           <h2
             className="text-[clamp(1.8rem,3.5vw,3rem)] font-semibold mb-4"
@@ -1240,7 +1189,7 @@ function PricingSection() {
               color: "rgba(255, 255, 255, 0.95)",
             }}
           >
-            Start free. Scale when ready.
+            {t.pricing.title}
           </h2>
           <p
             className="text-sm max-w-lg mx-auto"
@@ -1249,27 +1198,28 @@ function PricingSection() {
               color: "rgba(255, 255, 255, 0.35)",
             }}
           >
-            No hidden fees. No credit card required. Build your page today and
-            upgrade only when you need more.
+            {t.pricing.subtitle}
           </p>
         </div>
 
         {/* Tiers */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {pricingTiers.map((tier) => (
-            <TechBrackets key={tier.name}>
+          {tierMeta.map((meta, i) => {
+            const tier = t.pricing.tiers[i];
+            return (
+            <TechBrackets key={meta.plan}>
               <div
                 className="p-8 h-full flex flex-col"
                 style={{
-                  background: tier.highlight
+                  background: meta.highlight
                     ? "rgba(255, 255, 255, 0.05)"
                     : "rgba(255, 255, 255, 0.015)",
-                  border: tier.highlight
+                  border: meta.highlight
                     ? "1px solid rgba(255, 255, 255, 0.1)"
                     : "none",
                 }}
               >
-                {tier.highlight && (
+                {meta.highlight && (
                   <div
                     className="text-[8px] tracking-[0.3em] uppercase mb-4 self-start px-3 py-1"
                     style={{
@@ -1278,7 +1228,7 @@ function PricingSection() {
                       background: "rgba(255, 255, 255, 0.1)",
                     }}
                   >
-                    MOST POPULAR
+                    {t.pricing.mostPopular}
                   </div>
                 )}
                 <div
@@ -1298,7 +1248,7 @@ function PricingSection() {
                       color: "rgba(255, 255, 255, 0.95)",
                     }}
                   >
-                    {tier.price}
+                    {meta.price}
                   </span>
                   <span
                     className="text-xs"
@@ -1307,7 +1257,7 @@ function PricingSection() {
                       color: "rgba(255, 255, 255, 0.3)",
                     }}
                   >
-                    {tier.period}
+                    {meta.period}
                   </span>
                 </div>
                 <p
@@ -1343,25 +1293,26 @@ function PricingSection() {
                 </ul>
 
                 <Button
-                  onClick={() => handleCheckout(tier.plan)}
-                  disabled={loadingPlan === tier.plan}
+                  onClick={() => handleCheckout(meta.plan)}
+                  disabled={loadingPlan === meta.plan}
                   className="w-full rounded-none text-[10px] tracking-[0.2em] uppercase h-10"
                   style={{
                     fontFamily: "var(--font-ibm-plex), monospace",
-                    background: tier.highlight
+                    background: meta.highlight
                       ? "rgba(255, 255, 255, 0.9)"
                       : "rgba(255, 255, 255, 0.06)",
-                    color: tier.highlight ? "#000" : "rgba(255, 255, 255, 0.7)",
-                    border: tier.highlight
+                    color: meta.highlight ? "#000" : "rgba(255, 255, 255, 0.7)",
+                    border: meta.highlight
                       ? "none"
                       : "1px solid rgba(255, 255, 255, 0.08)",
                   }}
                 >
-                  {loadingPlan === tier.plan ? "REDIRECTING..." : tier.cta}
+                  {loadingPlan === meta.plan ? t.pricing.redirecting : tier.cta}
                 </Button>
               </div>
             </TechBrackets>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
@@ -1373,6 +1324,7 @@ function PricingSection() {
 /* -------------------------------------------------------------------------- */
 
 function CtaSection() {
+  const { t } = useTranslation();
   return (
     <section className="relative py-32 px-8" style={{ zIndex: 20 }}>
       <div className="max-w-3xl mx-auto text-center">
@@ -1392,7 +1344,7 @@ function CtaSection() {
                 color: "rgba(255, 255, 255, 0.3)",
               }}
             >
-              // READY TO BUILD?
+              {t.cta.overline}
             </div>
             <h2
               className="text-[clamp(1.8rem,3.5vw,3rem)] font-semibold mb-4"
@@ -1401,7 +1353,7 @@ function CtaSection() {
                 color: "rgba(255, 255, 255, 0.95)",
               }}
             >
-              Your internet identity starts here.
+              {t.cta.title}
             </h2>
             <p
               className="text-sm mb-10 max-w-lg mx-auto"
@@ -1410,9 +1362,7 @@ function CtaSection() {
                 color: "rgba(255, 255, 255, 0.35)",
               }}
             >
-              Join thousands of creators, developers, and professionals who
-              use lab68bio to showcase their work. Free forever — no strings
-              attached.
+              {t.cta.subtitle}
             </p>
             <div className="flex items-center justify-center gap-4">
               <Button
@@ -1424,7 +1374,7 @@ function CtaSection() {
                   color: "#000",
                 }}
               >
-                Create Your Page <ArrowRight size={14} className="ml-2" />
+                {t.cta.button} <ArrowRight size={14} className="ml-2" />
               </Button>
             </div>
           </div>
@@ -1438,22 +1388,8 @@ function CtaSection() {
 /*  FOOTER                                                                    */
 /* -------------------------------------------------------------------------- */
 
-const footerLinks = [
-  {
-    heading: "Product",
-    links: ["Features", "Templates", "Pricing", "Changelog", "Roadmap"],
-  },
-  {
-    heading: "Resources",
-    links: ["Documentation", "API Reference", "Blog", "Community", "Support"],
-  },
-  {
-    heading: "Company",
-    links: ["About", "Careers", "Brand", "Privacy Policy", "Terms of Service"],
-  },
-];
-
 function FooterSection() {
+  const { t } = useTranslation();
   return (
     <footer className="relative py-16 px-8 border-t border-white/[0.04]" style={{ zIndex: 20 }}>
       <div className="max-w-6xl mx-auto">
@@ -1479,13 +1415,12 @@ function FooterSection() {
                 color: "rgba(255, 255, 255, 0.3)",
               }}
             >
-              The simplest way to build and share your bio &amp; portfolio page.
-              Free, fast, and beautifully engineered.
+              {t.footer.brandDesc}
             </p>
           </div>
 
           {/* Link columns */}
-          {footerLinks.map((col) => (
+          {t.footer.columns.map((col) => (
             <div key={col.heading}>
               <div
                 className="text-[9px] tracking-[0.3em] uppercase mb-4"
@@ -1527,7 +1462,7 @@ function FooterSection() {
               color: "rgba(255, 255, 255, 0.2)",
             }}
           >
-            &copy; {new Date().getFullYear()} lab68bio. All rights reserved.
+            &copy; {new Date().getFullYear()} lab68bio.
           </span>
           <span
             className="text-[10px] tracking-wider mt-2 md:mt-0"
@@ -1536,7 +1471,7 @@ function FooterSection() {
               color: "rgba(255, 255, 255, 0.15)",
             }}
           >
-            Engineered with precision.
+            {t.footer.tagline}
           </span>
         </div>
       </div>
@@ -1550,27 +1485,38 @@ function FooterSection() {
 
 export default function HeroPage() {
   const stats = useNeonStats(2500);
+  const { t, lang, setLang } = useTranslation();
+
+  const statLabelMap: Record<string, string> = useMemo(
+    () => ({
+      CREATORS: t.stats.creators,
+      COMPONENTS: t.stats.components,
+      "PAGES BUILT": t.stats.pagesBuilt,
+      UPTIME: t.stats.uptime,
+    }),
+    [t]
+  );
 
   const hudLabels = useMemo(
     () => [
       {
-        label: "DRAG & DROP",
-        value: "COMPONENTS // READY",
+        label: t.hud.dragDrop,
+        value: t.hud.componentsReady,
         top: "12%",
         left: "8%",
         lineEndX: "80",
         lineEndY: "60",
       },
       {
-        label: "CUSTOM THEMES",
-        value: "UNLIMITED // STYLES",
+        label: t.hud.customThemes,
+        value: t.hud.unlimitedStyles,
         top: "22%",
         left: "65%",
         lineEndX: "-40",
         lineEndY: "50",
       },
       {
-        label: "YOUR LINK",
+        label: t.hud.yourLink,
         value: "USERNAME.BIO.LAB68",
         top: "68%",
         left: "10%",
@@ -1578,15 +1524,15 @@ export default function HeroPage() {
         lineEndY: "-40",
       },
       {
-        label: "PUBLISH",
-        value: "ONE CLICK // LIVE",
+        label: t.hud.publish,
+        value: t.hud.oneClickLive,
         top: "75%",
         left: "58%",
         lineEndX: "-30",
         lineEndY: "-50",
       },
     ],
-    []
+    [t]
   );
 
   return (
@@ -1620,11 +1566,11 @@ export default function HeroPage() {
         {/* CENTER: NAV LINKS */}
         <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-8">
           {[
-            { label: "Features", href: "#features" },
-            { label: "Templates", href: "#showcase" },
-            { label: "Showcase", href: "#showcase" },
-            { label: "Pricing", href: "#pricing" },
-            { label: "Docs", href: "#" },
+            { label: t.nav.features, href: "#features" },
+            { label: t.nav.templates, href: "#showcase" },
+            { label: t.nav.showcase, href: "#showcase" },
+            { label: t.nav.pricing, href: "#pricing" },
+            { label: t.nav.docs, href: "#" },
           ].map((item, i) => (
             <a
               key={item.label}
@@ -1648,13 +1594,14 @@ export default function HeroPage() {
         {/* RIGHT: LANG + BUTTON */}
         <div className="flex items-center gap-5">
           <button
+            onClick={() => setLang(lang === "en" ? "vi" : "en")}
             className="text-[10px] tracking-[0.15em] uppercase transition-colors hover:text-white"
             style={{
               fontFamily: "var(--font-ibm-plex), monospace",
               color: "rgba(255, 255, 255, 0.35)",
             }}
           >
-            v EN
+            {lang === "en" ? "EN | VI" : "VI | EN"}
           </button>
           <a href="/register">
             <Button
@@ -1666,7 +1613,7 @@ export default function HeroPage() {
                 color: "#000",
               }}
             >
-              Get Started
+              {t.nav.getStarted}
             </Button>
           </a>
         </div>
@@ -1710,7 +1657,7 @@ export default function HeroPage() {
                     color: "rgba(255, 255, 255, 0.95)",
                   }}
                 >
-                  Build your bio.
+                  {t.hero.headline1}
                 </span>
                 <span
                   className="block text-[clamp(2rem,4.5vw,4rem)]"
@@ -1719,7 +1666,7 @@ export default function HeroPage() {
                     color: "rgba(255, 255, 255, 0.55)",
                   }}
                 >
-                  Share your portfolio. Instantly.
+                  {t.hero.headline2}
                 </span>
               </h1>
 
@@ -1731,10 +1678,7 @@ export default function HeroPage() {
                   color: "rgba(255, 255, 255, 0.35)",
                 }}
               >
-                Drag-and-drop components to craft a stunning bio and portfolio
-                page in minutes. Claim your unique username.bio.lab68 link and
-                showcase your work, skills, and social presence — no coding
-                required. Beautiful by default, fully customizable.
+                {t.hero.desc}
               </p>
 
               {/* BUTTONS */}
@@ -1753,7 +1697,7 @@ export default function HeroPage() {
                         border: "none",
                       }}
                     >
-                      Start Building
+                      {t.hero.startBuilding}
                     </Button>
                   </a>
                 </TechBrackets>
@@ -1768,7 +1712,7 @@ export default function HeroPage() {
                       color: "#000",
                     }}
                   >
-                    See Examples
+                    {t.hero.seeExamples}
                   </Button>
                 </a>
               </div>
@@ -1805,7 +1749,7 @@ export default function HeroPage() {
                         color: "rgba(255, 255, 255, 0.3)",
                       }}
                     >
-                      {stat.label}
+                      {statLabelMap[stat.label] || stat.label}
                     </div>
                   </div>
                 </TechBrackets>

@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { Eye, EyeOff } from "lucide-react";
+import { useTranslation } from "@/lib/i18n";
 
 function TechBrackets({ children, className = "" }: { children: React.ReactNode; className?: string }) {
     const bracketStyle = "absolute w-[10px] h-[10px] pointer-events-none";
@@ -23,6 +25,8 @@ export default function RegisterPage() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    const { t } = useTranslation();
 
     async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -60,13 +64,13 @@ export default function RegisterPage() {
                         className="text-3xl font-bold tracking-tight text-white mb-2"
                         style={{ fontFamily: "var(--font-archivo), sans-serif" }}
                     >
-                        CREATE ACCOUNT
+                        {t.register.title}
                     </h1>
                     <p
                         className="text-white/40 text-xs tracking-[0.2em] uppercase"
                         style={{ fontFamily: "var(--font-ibm-plex), monospace" }}
                     >
-            // CLAIM YOUR USERNAME.BIO.LAB68
+            {t.register.subtitle}
                     </p>
                 </div>
 
@@ -75,7 +79,7 @@ export default function RegisterPage() {
                         <div className="space-y-4">
                             <div>
                                 <label className="text-[10px] tracking-[0.15em] text-white/50 uppercase mb-2 block" style={{ fontFamily: "var(--font-ibm-plex), monospace" }}>
-                                    USERNAME
+                                    {t.register.username}
                                 </label>
                                 <input
                                     name="username"
@@ -86,7 +90,7 @@ export default function RegisterPage() {
                             </div>
                             <div>
                                 <label className="text-[10px] tracking-[0.15em] text-white/50 uppercase mb-2 block" style={{ fontFamily: "var(--font-ibm-plex), monospace" }}>
-                                    EMAIL
+                                    {t.register.email}
                                 </label>
                                 <input
                                     name="email"
@@ -98,16 +102,26 @@ export default function RegisterPage() {
                             </div>
                             <div>
                                 <label className="text-[10px] tracking-[0.15em] text-white/50 uppercase mb-2 block" style={{ fontFamily: "var(--font-ibm-plex), monospace" }}>
-                                    PASSWORD
+                                    {t.register.password}
                                 </label>
-                                <input
-                                    name="password"
-                                    type="password"
-                                    required
-                                    minLength={8}
-                                    className="w-full bg-black/50 border border-white/10 px-3 py-2 text-sm text-white focus:outline-none focus:border-white/30 transition-colors"
-                                    style={{ fontFamily: "var(--font-ibm-plex), monospace" }}
-                                />
+                                <div className="relative">
+                                    <input
+                                        name="password"
+                                        type={showPassword ? "text" : "password"}
+                                        required
+                                        minLength={8}
+                                        className="w-full bg-black/50 border border-white/10 px-3 py-2 pr-10 text-sm text-white focus:outline-none focus:border-white/30 transition-colors"
+                                        style={{ fontFamily: "var(--font-ibm-plex), monospace" }}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute right-2 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/70 transition-colors"
+                                        aria-label={showPassword ? t.common.hidePassword : t.common.showPassword}
+                                    >
+                                        {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
@@ -123,12 +137,12 @@ export default function RegisterPage() {
                             className="w-full rounded-none text-[11px] tracking-[0.2em] uppercase h-11 bg-white hover:bg-white/90 text-black"
                             style={{ fontFamily: "var(--font-ibm-plex), monospace" }}
                         >
-                            {loading ? "CREATING..." : "CREATE ACCOUNT"}
+                            {loading ? t.register.loading : t.register.submit}
                         </Button>
 
                         <div className="text-center mt-4">
                             <a href="/login" className="text-[10px] text-white/40 hover:text-white transition-colors" style={{ fontFamily: "var(--font-ibm-plex), monospace" }}>
-                                ALREADY HAVE AN ACCOUNT? // SIGN IN
+                                {t.register.hasAccount}
                             </a>
                         </div>
                     </form>

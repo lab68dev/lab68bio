@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { Eye, EyeOff } from "lucide-react";
+import { useTranslation } from "@/lib/i18n";
 
 function TechBrackets({ children, className = "" }: { children: React.ReactNode; className?: string }) {
     const bracketStyle = "absolute w-[10px] h-[10px] pointer-events-none";
@@ -23,6 +25,8 @@ export default function LoginPage() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    const { t } = useTranslation();
 
     async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -46,7 +50,7 @@ export default function LoginPage() {
 
             router.push("/dashboard");
         } catch (err: unknown) {
-            setError(err instanceof Error ? err.message : "An error occurred");
+            setError(err instanceof Error ? err.message : t.common.networkError);
         } finally {
             setLoading(false);
         }
@@ -59,7 +63,7 @@ export default function LoginPage() {
                     <h1
                         className="text-3xl font-bold tracking-tight text-white mb-2 font-archivo"
                     >
-                        SIGN IN
+                        {t.login.title}
                     </h1>
             <p
                 className="text-white/40 text-xs tracking-[0.2em] uppercase font-ibm-plex"
@@ -73,7 +77,7 @@ export default function LoginPage() {
                         <div className="space-y-4">
                             <div>
                                 <label htmlFor="email" className="text-[10px] tracking-[0.15em] text-white/50 uppercase mb-2 block font-ibm-plex">
-                                    EMAIL
+                                    {t.login.email}
                                 </label>
                                 <input
                                     id="email"
@@ -85,15 +89,25 @@ export default function LoginPage() {
                             </div>
                             <div>
                                 <label htmlFor="password" className="text-[10px] tracking-[0.15em] text-white/50 uppercase mb-2 block font-ibm-plex">
-                                    PASSWORD
+                                    {t.login.password}
                                 </label>
-                                <input
-                                    id="password"
-                                    name="password"
-                                    type="password"
-                                    required
-                                    className="w-full bg-black/50 border border-white/10 px-3 py-2 text-sm text-white focus:outline-none focus:border-white/30 transition-colors font-ibm-plex"
-                                />
+                                <div className="relative">
+                                    <input
+                                        id="password"
+                                        name="password"
+                                        type={showPassword ? "text" : "password"}
+                                        required
+                                        className="w-full bg-black/50 border border-white/10 px-3 py-2 pr-10 text-sm text-white focus:outline-none focus:border-white/30 transition-colors font-ibm-plex"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute right-2 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/70 transition-colors"
+                                        aria-label={showPassword ? t.common.hidePassword : t.common.showPassword}
+                                    >
+                                        {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
@@ -108,12 +122,12 @@ export default function LoginPage() {
                             disabled={loading}
                             className="w-full rounded-none text-[11px] tracking-[0.2em] uppercase h-11 bg-white hover:bg-white/90 text-black font-ibm-plex"
                         >
-                            {loading ? "SIGNING IN..." : "SIGN IN"}
+                            {loading ? t.login.loading : t.login.submit}
                         </Button>
 
                         <div className="text-center mt-4">
                             <a href="/register" className="text-[10px] text-white/40 hover:text-white transition-colors font-ibm-plex">
-                                DON&apos;T HAVE AN ACCOUNT? // REGISTER
+                                {t.login.noAccount}
                             </a>
                         </div>
                     </form>

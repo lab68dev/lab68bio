@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Archivo, IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
+import { I18nProvider } from "@/lib/i18n";
 
 const archivo = Archivo({
   variable: "--font-archivo",
@@ -32,7 +33,7 @@ export default function RootLayout({
       <body
         className={`${archivo.variable} ${ibmPlexSans.variable} antialiased`}
       >
-        {children}
+        <I18nProvider>{children}</I18nProvider>
       </body>
     </html>
   );
