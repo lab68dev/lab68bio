@@ -23,6 +23,14 @@ function verifySignature(rawBody: string, signature: string): boolean {
 }
 
 /* ------------------------------------------------------------------ */
+/*  GET – health-check so you can verify the endpoint is live         */
+/* ------------------------------------------------------------------ */
+
+export function GET() {
+    return NextResponse.json({ status: "ok", message: "Webhook endpoint is live. LemonSqueezy sends POST requests here." });
+}
+
+/* ------------------------------------------------------------------ */
 /*  WEBHOOK HANDLER                                                   */
 /* ------------------------------------------------------------------ */
 
