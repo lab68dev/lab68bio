@@ -22,6 +22,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { useTranslation, type Lang } from "@/lib/i18n";
+import Image from "next/image";
 
 /* -------------------------------------------------------------------------- */
 /*  NEON DATABASE PROXY MOCK                                                  */
@@ -665,72 +666,17 @@ function HudLabel({ label, value, top, left, lineEndX, lineEndY }: HudLabelProps
 }
 
 /* -------------------------------------------------------------------------- */
-/*  GEOMETRIC LOGO                                                            */
+/*  LOGO                                                                      */
 /* -------------------------------------------------------------------------- */
 
 function Logo() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const dpr = window.devicePixelRatio || 1;
-    const size = 28;
-    canvas.width = size * dpr;
-    canvas.height = size * dpr;
-    ctx.scale(dpr, dpr);
-
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.9)";
-    ctx.lineWidth = 1.2;
-
-    ctx.beginPath();
-    ctx.moveTo(4, 4);
-    ctx.lineTo(24, 4);
-    ctx.lineTo(24, 24);
-    ctx.lineTo(4, 24);
-    ctx.closePath();
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.moveTo(9, 9);
-    ctx.lineTo(19, 9);
-    ctx.lineTo(19, 19);
-    ctx.lineTo(9, 19);
-    ctx.closePath();
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.moveTo(4, 4);
-    ctx.lineTo(9, 9);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(24, 4);
-    ctx.lineTo(19, 9);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(24, 24);
-    ctx.lineTo(19, 19);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(4, 24);
-    ctx.lineTo(9, 19);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.arc(14, 14, 3, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
-    ctx.fill();
-  }, []);
-
   return (
-    <canvas
-      ref={canvasRef}
-      width={28}
-      height={28}
-      style={{ width: "28px", height: "28px" }}
+    <Image
+      src="/design-mode/lab68dev_logo.png"
+      alt="lab68bio logo"
+      width={32}
+      height={32}
+      className="rounded-sm"
     />
   );
 }

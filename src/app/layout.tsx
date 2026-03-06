@@ -21,6 +21,16 @@ export const metadata: Metadata = {
   title: "lab68bio — Build Your Bio & Portfolio",
   description:
     "Create stunning bio and portfolio pages with drag-and-drop components. Claim your username.bio.lab68 link and share your work with the world.",
+  icons: {
+    icon: "/design-mode/favicon.ico",
+    apple: "/design-mode/lab68dev_logo.png",
+  },
+  openGraph: {
+    title: "lab68bio — Build Your Bio & Portfolio",
+    description:
+      "Create stunning bio and portfolio pages with drag-and-drop components.",
+    images: [{ url: "/design-mode/lab68dev_logo.png" }],
+  },
 };
 
 export default function RootLayout({
